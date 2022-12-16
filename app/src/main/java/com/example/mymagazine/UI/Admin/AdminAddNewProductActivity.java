@@ -1,9 +1,5 @@
 package com.example.mymagazine.UI.Admin;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,9 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mymagazine.R;
-import com.example.mymagazine.UI.LoginActivity;
-import com.example.mymagazine.UI.RegisterActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,7 +48,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_add_new_product);
 
         init();
-        productImage.setOnClickListener((v)->{
+        productImage.setOnClickListener((v) -> {
             openGallery();
         });
 
@@ -65,18 +63,15 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         price = productPrice.getText().toString();
         pName = productName.getText().toString();
 
-        if (imageUri == null){
+        if (imageUri == null) {
             Toast.makeText(this, "Добавьте изображение товара", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(description)){
+        } else if (TextUtils.isEmpty(description)) {
             Toast.makeText(this, "Добавьте описание товара", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(price)){
+        } else if (TextUtils.isEmpty(price)) {
             Toast.makeText(this, "Добавьте стоимость товара", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(pName)){
+        } else if (TextUtils.isEmpty(pName)) {
             Toast.makeText(this, "Добавьте опназвание исание товара", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             StoreProductInformation();
         }
     }
@@ -113,7 +108,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
                 Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
                             throw task.getException();
                         }
                         downloadImageUrl = filePath.getDownloadUrl().toString();
@@ -122,7 +117,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(AdminAddNewProductActivity.this, "Фото сохранено", Toast.LENGTH_SHORT).show();
 
                             SaveProductInfoToDatabase();
@@ -148,14 +143,14 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         productsRef.child(productRandomKey).updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     loadingBar.dismiss();
                     Toast.makeText(AdminAddNewProductActivity.this, "Товар добавлен", Toast.LENGTH_SHORT).show();
                     Intent loginIntent =
                             new Intent(AdminAddNewProductActivity.this, AdminCategoryChangeActivity.class);
                     startActivity(loginIntent);
-                }else {
+                } else {
                     String message = task.getException().toString();
                     Toast.makeText(AdminAddNewProductActivity.this, "Ошибка " + message, Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
@@ -168,7 +163,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERYPICK && resultCode == RESULT_OK && data != null){
+        if (requestCode == GALLERYPICK && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
             productImage.setImageURI(imageUri);
         }
@@ -181,7 +176,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, GALLERYPICK);
     }
 
-    private void init(){
+    private void init() {
         categoryName = getIntent().getExtras().get("category").toString();
         productImage = findViewById(R.id.select_product_image);
         productName = findViewById(R.id.product_name);

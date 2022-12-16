@@ -1,8 +1,5 @@
 package com.example.mymagazine.UI.Users;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mymagazine.UI.LoginActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mymagazine.Model.Users;
 import com.example.mymagazine.Prevalent.Prevalent;
 import com.example.mymagazine.R;
+import com.example.mymagazine.UI.LoginActivity;
 import com.example.mymagazine.UI.RegisterActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Paper.init(this);
 
         loginBtn.setOnClickListener((v) -> {
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
         });
 
 
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
 
-        if (UserPhoneKey != "" && UserPasswordKey != ""){
-            if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)){
+        if (UserPhoneKey != "" && UserPasswordKey != "") {
+            if (!TextUtils.isEmpty(UserPhoneKey) && !TextUtils.isEmpty(UserPasswordKey)) {
                 ValidateUser(UserPhoneKey, UserPasswordKey);
                 loadingBar.setTitle("Вход в аккаунт");
                 loadingBar.setMessage("Пожалуйста подождите...");
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         rootRefLogin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("Users").child(phone).exists()){
+                if (snapshot.child("Users").child(phone).exists()) {
                     Users usersData = snapshot.child("Users").child(phone).getValue(Users.class);
                     assert usersData != null;
                     if (usersData.getPhone().equals(phone)) {
@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Успешный вход!", Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(homeIntent);
-                        }else{
+                        } else {
                             loadingBar.dismiss();
                         }
                     }
-                }else {
+                } else {
                     loadingBar.dismiss();
                     Toast.makeText(MainActivity.this, "Аккаунт с номером " + phone + " не существует",
                             Toast.LENGTH_SHORT).show();
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(registerIntent);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

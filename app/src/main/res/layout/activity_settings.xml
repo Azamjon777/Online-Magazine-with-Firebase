@@ -61,7 +61,7 @@
     <EditText
         android:id="@+id/settings_fullName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/settings_account_image"
         android:hint="Ваше имя"
         android:padding="10dp"
@@ -73,7 +73,7 @@
     <EditText
         android:id="@+id/settings_phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/settings_fullName"
         android:hint="Ваш номер"
         android:padding="10dp"
@@ -85,7 +85,7 @@
     <EditText
         android:id="@+id/settings_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/settings_phone"
         android:hint="Ваш адесс"
         android:padding="10dp"

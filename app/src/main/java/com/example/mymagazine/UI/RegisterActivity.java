@@ -1,8 +1,5 @@
 package com.example.mymagazine.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymagazine.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,14 +53,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Введите имя", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(phone)) {
+        } else if (TextUtils.isEmpty(phone)) {
             Toast.makeText(this, "Введите номер телефона", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Введите пароль", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             loadingBar.setTitle("Создание аккаунта");
             loadingBar.setMessage("Пожалуйста подождите...");
             loadingBar.setCanceledOnTouchOutside(false);
@@ -77,9 +74,9 @@ public class RegisterActivity extends AppCompatActivity {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (phone.length() == 12){
+                if (phone.length() == 12) {
                     if (!(snapshot.child("Users").child(phone).exists())) {
-                        if (username.length() > 3){
+                        if (username.length() > 3) {
                             if (password.length() == 8) {
                                 HashMap<String, Object> userDataMap = new HashMap<>();
                                 userDataMap.put("phone", phone);
@@ -103,21 +100,20 @@ public class RegisterActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(RegisterActivity.this, "Пароль меньше 8 символов", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(RegisterActivity.this, "Слишком короткое имя", Toast.LENGTH_SHORT).show();
                         }
-                    }else {
+                    } else {
                         loadingBar.dismiss();
                         Toast.makeText(RegisterActivity.this, "Номер" + phone + "Уже зарегистрирован",
                                 Toast.LENGTH_SHORT).show();
                         Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(loginIntent);
                     }
-                }else {
+                } else {
                     Toast.makeText(RegisterActivity.this, "Введите номер коррректно", Toast.LENGTH_SHORT).show();
                 }
             }

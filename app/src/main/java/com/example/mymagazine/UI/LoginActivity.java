@@ -1,8 +1,5 @@
 package com.example.mymagazine.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mymagazine.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mymagazine.Model.Users;
 import com.example.mymagazine.Prevalent.Prevalent;
+import com.example.mymagazine.R;
 import com.example.mymagazine.UI.Admin.AdminCategoryChangeActivity;
 import com.example.mymagazine.UI.Users.HomeActivity;
-import com.example.mymagazine.UI.Users.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         adminLink = findViewById(R.id.admin_panel_link);
         notAdminLink = findViewById(R.id.not_admin_panel_link);
 
-        loginBtn.setOnClickListener((v) -> { loginUser(); });
+        loginBtn.setOnClickListener((v) -> {
+            loginUser();
+        });
 
         adminLink.setOnClickListener(v -> {
             adminLink.setVisibility(View.INVISIBLE);
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             loginBtn.setText("Вход для админа");
             parentDbName = "Admins";
         });
-        
+
         notAdminLink.setOnClickListener((v -> {
             adminLink.setVisibility(View.VISIBLE);
             notAdminLink.setVisibility(View.INVISIBLE);
@@ -75,23 +76,21 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             Toast.makeText(this, "Введите номер телефона", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Введите пароль", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             loadingBar.setTitle("Вход в аккаунт");
             loadingBar.setMessage("Пожалуйста подождите...");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
-            ValidateUser( phone, password);
+            ValidateUser(phone, password);
         }
     }
 
     private void ValidateUser(String phone, String password) {
 
-        if (checkBoxRememberMe.isChecked()){
+        if (checkBoxRememberMe.isChecked()) {
             Paper.book().write(Prevalent.UserPhoneKey, phone);
             Paper.book().write(Prevalent.UserPasswordKey, password);
         }
@@ -101,30 +100,30 @@ public class LoginActivity extends AppCompatActivity {
         rootRefLogin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(parentDbName).child(phone).exists()){
+                if (snapshot.child(parentDbName).child(phone).exists()) {
                     Users usersData = snapshot.child(parentDbName).child(phone).getValue(Users.class);
                     assert usersData != null;
                     if (usersData.getPhone().equals(phone)) {
                         if (usersData.getPassword().equals(password)) {
-                            if (parentDbName.equals("Users")){
+                            if (parentDbName.equals("Users")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this, "Успешный вход!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(homeIntent);
                                 finish();
-                            }else if (parentDbName.equals("Admins")){
+                            } else if (parentDbName.equals("Admins")) {
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this, "Успешный вход!", Toast.LENGTH_SHORT).show();
                                 Intent adminIntent = new Intent(LoginActivity.this, AdminCategoryChangeActivity.class);
                                 startActivity(adminIntent);
                                 finish();
                             }
-                        }else{
+                        } else {
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this, "Пароль неправильный", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }else {
+                } else {
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this, "Аккаунт с номером " + phone + " не существует",
                             Toast.LENGTH_SHORT).show();
@@ -132,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(registerIntent);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

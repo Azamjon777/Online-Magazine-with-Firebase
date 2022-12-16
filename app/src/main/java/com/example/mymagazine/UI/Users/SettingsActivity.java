@@ -1,9 +1,6 @@
 package com.example.mymagazine.UI.Users;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +9,10 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymagazine.Prevalent.Prevalent;
 import com.example.mymagazine.R;
@@ -28,7 +29,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
@@ -44,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
     private StorageTask uploadTask;
 
 
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         saveTextBtn.setOnClickListener((v) -> {
-            if (checker.equals("clicked")){
+            if (checker.equals("clicked")) {
                 userInfoSaved();
-            }else {
+            } else {
                 updateOnlyUserInfo();
             }
         });
@@ -125,12 +125,12 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
 
             profileImageView.setImageURI(imageUri);
-        }else {
+        } else {
             Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
             finish();
@@ -138,9 +138,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void userInfoSaved() {
-        if (TextUtils.isEmpty(fullNameEditText.getText().toString())){
+        if (TextUtils.isEmpty(fullNameEditText.getText().toString())) {
             Toast.makeText(this, "Заполните имя", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(addressEditText.getText().toString())){
+        } else if (TextUtils.isEmpty(addressEditText.getText().toString())) {
             Toast.makeText(this, "Заполните адресс", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(userPhoneEditText.getText().toString())) {
             Toast.makeText(this, "Заполните номер", Toast.LENGTH_SHORT).show();
@@ -156,46 +156,45 @@ public class SettingsActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        if (imageUri != null){
+        if (imageUri != null) {
             final StorageReference fileRef = storageProfilePictureRef
                     .child(Prevalent.currentOnlineUser.getPhone() + "WebP");
             uploadTask = fileRef.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()){
+                    if (!task.isSuccessful()) {
                         throw task.getException();
                     }
                     return fileRef.getDownloadUrl();
                 }
-            })
-                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()){
-                                Uri downloadUri = task.getResult();
-                                String myUrl = downloadUri.toString();
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        String myUrl = downloadUri.toString();
 
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
-                                HashMap<String, Object> userMap = new HashMap<>();
-                                userMap.put("name", fullNameEditText.getText().toString());
-                                userMap.put("address", addressEditText.getText().toString());
-                                userMap.put("phoneOrder", userPhoneEditText.getText().toString());
-                                userMap.put("image", myUrl);
-                                ref.child(Prevalent.currentOnlineUser.getPhone()).updateChildren(userMap);
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        userMap.put("name", fullNameEditText.getText().toString());
+                        userMap.put("address", addressEditText.getText().toString());
+                        userMap.put("phoneOrder", userPhoneEditText.getText().toString());
+                        userMap.put("image", myUrl);
+                        ref.child(Prevalent.currentOnlineUser.getPhone()).updateChildren(userMap);
 
-                                progressDialog.dismiss();
-                                startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
-                                Toast.makeText(SettingsActivity.this, "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                              progressDialog.dismiss();
-                                Toast.makeText(SettingsActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }else {
+                        progressDialog.dismiss();
+                        startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+                        Toast.makeText(SettingsActivity.this, "Данные успешно сохранены", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(SettingsActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
             Toast.makeText(this, "Изобажение не выбрано", Toast.LENGTH_SHORT).show();
         }
     }

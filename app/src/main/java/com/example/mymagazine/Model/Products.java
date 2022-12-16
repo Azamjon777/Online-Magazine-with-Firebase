@@ -3,7 +3,7 @@ package com.example.mymagazine.Model;
 public class Products {
     private String pName, description, price, image, category, pid, date, time;
 
-    public Products(){
+    public Products() {
 
     }
 
@@ -23,7 +23,7 @@ public class Products {
         return pName;
     }
 
-    public void setpName(String pName) {
+    public void setupName(String pName) {
         this.pName = pName;
     }
 

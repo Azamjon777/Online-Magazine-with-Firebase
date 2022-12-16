@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mymagazine.Interface.ItemClickListener;
 import com.example.mymagazine.R;
 
-public class ProductNewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-{
+public class ProductNewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView txtProductName, txtProductDescription, txtProductPrice;
     public ImageView imageView;
     public ItemClickListener listener;
@@ -25,7 +24,7 @@ public class ProductNewHolder extends RecyclerView.ViewHolder implements View.On
         txtProductPrice = itemView.findViewById(R.id.product_price);
     }
 
-    public void setItemClickListener(ItemClickListener listener){
+    public void setItemClickListener(ItemClickListener listener) {
         this.listener = listener;
     }
 

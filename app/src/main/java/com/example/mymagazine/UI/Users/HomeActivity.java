@@ -50,8 +50,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         productsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
-        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar( toolbar );
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setTitle("Меню");
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -82,8 +82,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        //userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        //Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        userNameTextView.setText(Prevalent.currentOnlineUser.getName());
+        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
         recyclerView = findViewById(R.id.recycle_menu);
         recyclerView.setHasFixedSize(true);
@@ -101,23 +101,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         FirebaseRecyclerAdapter<Products, ProductNewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductNewHolder>(options) {
 
-            @Override
-            protected void onBindViewHolder(
-                    @NonNull ProductNewHolder holder, int i, @NonNull Products model) {
-                holder.txtProductName.setText(model.getpName());
-                holder.txtProductDescription.setText(model.getDescription());
-                holder.txtProductPrice.setText("Цена" + model.getPrice() + "Суммов");
-                Picasso.get().load(model.getImage()).into(holder.imageView);
-            }
+                    @Override
+                    protected void onBindViewHolder(
+                            @NonNull ProductNewHolder holder, int i, @NonNull Products model) {
+                        holder.txtProductName.setText(model.getpName());
+                        holder.txtProductDescription.setText(model.getDescription());
+                        holder.txtProductPrice.setText("Цена" + model.getPrice() + "Суммов");
+                        Picasso.get().load(model.getImage()).into(holder.imageView);
+                    }
 
-            @NonNull
-            @Override
-            public ProductNewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_items_layout, parent, false);
-                ProductNewHolder holder = new ProductNewHolder(view);
-                return holder;
-            }
-        };
+                    @NonNull
+                    @Override
+                    public ProductNewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_items_layout, parent, false);
+                        ProductNewHolder holder = new ProductNewHolder(view);
+                        return holder;
+                    }
+                };
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
@@ -125,9 +125,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -142,16 +142,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.nav_cart){
+        if (id == R.id.nav_cart) {
 
-        } else if(id == R.id.nav_orders){
+        } else if (id == R.id.nav_orders) {
 
-        } else if(id == R.id.nav_category){
+        } else if (id == R.id.nav_category) {
 
-        } else if(id == R.id.nav_settings){
+        } else if (id == R.id.nav_settings) {
             Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(loginIntent);
-        } else if(id == R.id.nav_logout){
+        } else if (id == R.id.nav_logout) {
             Paper.book().destroy();
             Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(loginIntent);

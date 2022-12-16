@@ -1,10 +1,10 @@
 package com.example.mymagazine.UI.Admin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mymagazine.R;
 
@@ -21,82 +21,82 @@ public class AdminCategoryChangeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_category_change);
 
         init();
-        car.setOnClickListener((v) ->{
+        car.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "car");
             startActivity(intent);
         });
-        moto.setOnClickListener((v) ->{
+        moto.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "moto");
             startActivity(intent);
         });
-        boat.setOnClickListener((v) ->{
+        boat.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "boat");
             startActivity(intent);
         });
-        service.setOnClickListener((v) ->{
+        service.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "service");
             startActivity(intent);
         });
-        dress.setOnClickListener((v) ->{
+        dress.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "dress");
             startActivity(intent);
         });
-        shoes.setOnClickListener((v) ->{
+        shoes.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "shoes");
             startActivity(intent);
         });
-        clothes.setOnClickListener((v) ->{
+        clothes.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "clothes");
             startActivity(intent);
         });
-        hat.setOnClickListener((v) ->{
+        hat.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "hat");
             startActivity(intent);
         });
-        phone.setOnClickListener((v) ->{
+        phone.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "phone");
             startActivity(intent);
         });
-        computer.setOnClickListener((v) ->{
+        computer.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "computer");
             startActivity(intent);
         });
-        photo.setOnClickListener((v) ->{
+        photo.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "photo");
             startActivity(intent);
         });
-        fridge.setOnClickListener((v) ->{
+        fridge.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "fridge");
             startActivity(intent);
         });
-        sport.setOnClickListener((v) ->{
+        sport.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "sport");
             startActivity(intent);
         });
-        book.setOnClickListener((v) ->{
+        book.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "book");
             startActivity(intent);
         });
-        collection.setOnClickListener((v) ->{
+        collection.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "collection");
             startActivity(intent);
         });
-        music.setOnClickListener((v) ->{
+        music.setOnClickListener((v) -> {
             Intent intent = new Intent(AdminCategoryChangeActivity.this, AdminAddNewProductActivity.class);
             intent.putExtra("category", "music");
             startActivity(intent);
@@ -104,7 +104,7 @@ public class AdminCategoryChangeActivity extends AppCompatActivity {
 
     }
 
-    private void init(){
+    private void init() {
         car = findViewById(R.id.car);
         moto = findViewById(R.id.moto);
         boat = findViewById(R.id.boat);
