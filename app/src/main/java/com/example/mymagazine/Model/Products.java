@@ -19,7 +19,7 @@ public class Products {
         this.time = time;
     }
 
-    public String getpName() {
+    public String getName() {
         return pName;
     }
 

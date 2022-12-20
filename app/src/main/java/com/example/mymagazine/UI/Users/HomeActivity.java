@@ -104,7 +104,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     protected void onBindViewHolder(
                             @NonNull ProductNewHolder holder, int i, @NonNull Products model) {
-                        holder.txtProductName.setText(model.getpName());
+                        holder.txtProductName.setText(model.getName());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Цена" + model.getPrice() + "Суммов");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
@@ -142,19 +142,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_cart) {
-
-        } else if (id == R.id.nav_orders) {
-
-        } else if (id == R.id.nav_category) {
-
-        } else if (id == R.id.nav_settings) {
-            Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(loginIntent);
-        } else if (id == R.id.nav_logout) {
-            Paper.book().destroy();
-            Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
+        switch (id) {
+//            case R.id.nav_cart:
+//
+//                break;
+//            case R.id.nav_orders:
+//
+//                break;
+//            case R.id.nav_category:
+//
+//                break;
+            case R.id.nav_settings: {
+                Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(loginIntent);
+                break;
+            }
+            case R.id.nav_logout: {
+                Paper.book().destroy();
+                Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                break;
+            }
         }
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);

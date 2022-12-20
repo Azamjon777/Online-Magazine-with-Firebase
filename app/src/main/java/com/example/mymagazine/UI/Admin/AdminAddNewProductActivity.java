@@ -70,7 +70,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(price)) {
             Toast.makeText(this, "Добавьте стоимость товара", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(pName)) {
-            Toast.makeText(this, "Добавьте опназвание исание товара", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Добавьте название товара", Toast.LENGTH_SHORT).show();
         } else {
             StoreProductInformation();
         }
