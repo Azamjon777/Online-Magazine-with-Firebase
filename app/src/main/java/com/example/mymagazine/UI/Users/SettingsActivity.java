@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -92,10 +93,10 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     if (snapshot.child("image").exists()) {
-                        String image = snapshot.child("image").getValue().toString();
-                        String name = snapshot.child("name").getValue().toString();
-                        String phone = snapshot.child("phone").getValue().toString();
-                        String address = snapshot.child("address").getValue().toString();
+                        String image = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
+                        String name = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
+                        String phone = Objects.requireNonNull(snapshot.child("phone").getValue()).toString();
+                        String address = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
 
                         Picasso.get().load(image).into(profileImageView);
                         fullNameEditText.setText(name);
@@ -104,9 +105,9 @@ public class SettingsActivity extends AppCompatActivity {
                     }
 
                     if (snapshot.child("address").exists()) {
-                        String name = snapshot.child("name").getValue().toString();
-                        String phone = snapshot.child("phone").getValue().toString();
-                        String address = snapshot.child("address").getValue().toString();
+                        String name = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
+                        String phone = Objects.requireNonNull(snapshot.child("phone").getValue()).toString();
+                        String address = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
 
                         fullNameEditText.setText(name);
                         userPhoneEditText.setText(phone);

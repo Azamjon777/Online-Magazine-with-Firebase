@@ -82,8 +82,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        //userNameTextView.setText(Prevalent.currentOnlineUser.getName());
+        //Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
         recyclerView = findViewById(R.id.recycle_menu);
         recyclerView.setHasFixedSize(true);
@@ -152,11 +152,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //            case R.id.nav_category:
 //
 //                break;
-            case R.id.nav_settings: {
-                Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
-                startActivity(loginIntent);
-                break;
-            }
+//            case R.id.nav_settings: {
+//                Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+//                startActivity(loginIntent);
+//                break;
+//            }
             case R.id.nav_logout: {
                 Paper.book().destroy();
                 Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
